@@ -2,7 +2,10 @@ package com.api.planner.trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
+
+import com.api.planner.participant.Participant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +29,6 @@ public class Trip {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@OneToMany(mappedBy = "trip")
 	private UUID id;
 
 	@Column(nullable = false)
@@ -46,6 +48,9 @@ public class Trip {
 
 	@Column(name = "owner_email", nullable = false)
 	private String ownerEmail;
+	
+	@OneToMany(mappedBy = "trip")
+	private List<Participant> participants;
 
 	public Trip(TripRequestPayload data) {
 		this.destination = data.destination();
