@@ -31,7 +31,7 @@ public class Trip {
 	private String destination;
 
 	@Column(name = "starts_at", nullable = false)
-	private LocalDateTime startAt;
+	private LocalDateTime startsAt;
 
 	@Column(name = "ends_at", nullable = false)
 	private LocalDateTime endsAt;
@@ -50,12 +50,7 @@ public class Trip {
 		this.isConfirmed = false;
 		this.ownerEmail = data.ownerEmail();
 		this.ownerName = data.ownerName();
-		this.startAt = fmt(data.startsAt());
-		this.endsAt = fmt(data.endsAt());
-	}
-
-	public static LocalDateTime fmt(String date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		return LocalDateTime.parse(date, formatter);
+		this.startsAt = LocalDateTime.parse(data.startsAt(), DateTimeFormatter.ISO_DATE_TIME);
+		this.endsAt = LocalDateTime.parse(data.endsAt(), DateTimeFormatter.ISO_DATE_TIME);
 	}
 }
