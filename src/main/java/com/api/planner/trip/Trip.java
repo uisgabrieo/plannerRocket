@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_trip")
+@Table(name = "trips")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class Trip {
 	private UUID id;
 
 	@Column(nullable = false)
-	private String detination;
+	private String destination;
 
 	@Column(name = "starts_at", nullable = false)
 	private LocalDateTime startAt;
@@ -36,7 +36,7 @@ public class Trip {
 	@Column(name = "ends_at", nullable = false)
 	private LocalDateTime endsAt;
 
-	@Column(name = "is_confirmad", nullable = false)
+	@Column(name = "is_confirmed", nullable = false)
 	private Boolean isConfirmed;
 
 	@Column(name = "owner_name", nullable = false)
@@ -46,11 +46,11 @@ public class Trip {
 	private String ownerEmail;
 
 	public Trip(TripRequestPayload data) {
-		this.detination = data.destination();
+		this.destination = data.destination();
 		this.isConfirmed = false;
 		this.ownerEmail = data.ownerEmail();
 		this.ownerName = data.ownerName();
-		this.startAt = fmt(data.startAt());
+		this.startAt = fmt(data.startsAt());
 		this.endsAt = fmt(data.endsAt());
 	}
 
