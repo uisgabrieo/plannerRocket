@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ActivitieRepository extends JpaRepository<Activitie, UUID> {
+public interface ActivityRepository extends JpaRepository<Activity, UUID> {
 
 }

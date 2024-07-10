@@ -1,6 +1,7 @@
 package com.api.planner.activities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import com.api.planner.trip.Trip;
@@ -10,7 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Activitie {
+public class Activity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +37,13 @@ public class Activitie {
 	@Column(name = "occurs_at", nullable = false)
 	private LocalDateTime occursAt;
 	
-	@OneToMany
+	@ManyToOne
+	@JoinColumn(name = "trip_id", nullable = false)
 	private Trip trip;
 	
+	public Activity(ActivityRequestPayload data, Trip trip) {
+		this.title = data.title();
+		this.occursAt = LocalDateTime.parse(data.occursAt(), DateTimeFormatter.ISO_DATE_TIME);
+		this.trip = trip;
+	}
 }
