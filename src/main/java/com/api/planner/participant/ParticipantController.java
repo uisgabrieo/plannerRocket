@@ -37,6 +37,4 @@ public class ParticipantController {
 		return ResponseEntity.notFound().build();
 		
 	}
-	
-	
 }

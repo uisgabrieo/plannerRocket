@@ -38,4 +38,12 @@ public class ParticipantService {
 		
 	}
 	
+	public List<ParticipantData> findParticipantsByTripId(UUID id) {
+		
+		return this.repository.findByTripId(id).stream()
+		.map(particpant -> new ParticipantData(
+				particpant.getId(), particpant.getName(), particpant.getEmail(), particpant.getIsConfirmed()))
+		.toList();
+	}
+	
 }

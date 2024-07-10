@@ -2,17 +2,13 @@ package com.api.planner.trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.UUID;
-
-import com.api.planner.participant.Participant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,9 +44,6 @@ public class Trip {
 
 	@Column(name = "owner_email", nullable = false)
 	private String ownerEmail;
-	
-	@OneToMany(mappedBy = "trip")
-	private List<Participant> participants;
 
 	public Trip(TripRequestPayload data) {
 		this.destination = data.destination();

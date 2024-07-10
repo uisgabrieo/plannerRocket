@@ -2,6 +2,7 @@ package com.api.planner.trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.planner.participant.ParticipantCreateResponse;
+import com.api.planner.participant.ParticipantData;
 import com.api.planner.participant.ParticipantRequestPayload;
 import com.api.planner.participant.ParticipantService;
 
@@ -101,5 +103,13 @@ public class TripController {
 		
 		return ResponseEntity.notFound().build();
 		
+	}
+	
+	@GetMapping("/{id}/participants")
+	public ResponseEntity<List<ParticipantData>> partifipantsTrip(@PathVariable UUID id) {
+		
+		List<ParticipantData> participants = this.participantService.findParticipantsByTripId(id);
+		
+		return ResponseEntity.ok().body(participants);
 	}
 }

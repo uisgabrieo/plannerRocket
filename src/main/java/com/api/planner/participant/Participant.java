@@ -3,7 +3,6 @@ package com.api.planner.participant;
 import java.util.UUID;
 
 import com.api.planner.trip.Trip;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +40,6 @@ public class Participant {
 	
 	@ManyToOne
 	@JoinColumn(name = "trip_id", nullable = false)
-	@JsonIgnore
 	private Trip trip;
 	
 	public Participant(String email, Trip trip) {
