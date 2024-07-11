@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.planner.activities.ActivityCreateResponse;
 import com.api.planner.activities.ActivityRequestPayload;
+import com.api.planner.activities.ActivityResponse;
 import com.api.planner.activities.ActivityService;
 import com.api.planner.participant.ParticipantCreateResponse;
 import com.api.planner.participant.ParticipantData;
@@ -112,11 +113,16 @@ public class TripController {
 	}
 	
 	@GetMapping("/{id}/participants")
-	public ResponseEntity<List<ParticipantData>> partifipantsTrip(@PathVariable UUID id) {
+	public ResponseEntity<List<ParticipantData>> allParticipantsTrip(@PathVariable UUID id) {
+		Optional<Trip> trip = this.repository.findById(id);
+		if (trip.isPresent()) {
+			List<ParticipantData> participants = this.participantService.findParticipantsByTripId(id);
+			
+			return ResponseEntity.ok().body(participants);
+			
+		}
 		
-		List<ParticipantData> participants = this.participantService.findParticipantsByTripId(id);
-		
-		return ResponseEntity.ok().body(participants);
+		return ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping("/{id}/activity")
@@ -132,6 +138,19 @@ public class TripController {
 		}
 		
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/{id}/activities")
+	public ResponseEntity<List<ActivityResponse>> allActivitiesTrip(@PathVariable UUID id) {
+		Optional<Trip> trip = this.repository.findById(id);
 		
+		if(trip.isPresent()) {
+			
+			List<ActivityResponse> activityResponses = this.activityService.findParticipantsByTripId(id);
+			
+			return ResponseEntity.ok(activityResponses);
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 }

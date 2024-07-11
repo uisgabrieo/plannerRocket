@@ -1,5 +1,8 @@
 package com.api.planner.activities;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +21,11 @@ public class ActivityService {
 		return new ActivityCreateResponse(newActivity.getId());
 	}
 	
+	public List<ActivityResponse> findParticipantsByTripId(UUID id) {
+		
+		return this.repository.findByTripId(id).stream().map(
+				activity -> new ActivityResponse(activity.getId(), activity.getTitle(), activity.getOccursAt())).toList();
+		
+	}
 	
 }
