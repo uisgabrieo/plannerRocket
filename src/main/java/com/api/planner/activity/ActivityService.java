@@ -21,7 +21,7 @@ public class ActivityService {
 		return new ActivityCreateResponse(newActivity.getId());
 	}
 	
-	public List<ActivityResponse> findParticipantsByTripId(UUID id) {
+	public List<ActivityResponse> findActivitiesByTripId(UUID id) {
 		
 		return this.repository.findByTripId(id).stream().map(
 				activity -> new ActivityResponse(activity.getId(), activity.getTitle(), activity.getOccursAt())).toList();

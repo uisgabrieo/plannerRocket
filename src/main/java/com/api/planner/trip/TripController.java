@@ -20,8 +20,9 @@ import com.api.planner.activity.ActivityCreateResponse;
 import com.api.planner.activity.ActivityRequestPayload;
 import com.api.planner.activity.ActivityResponse;
 import com.api.planner.activity.ActivityService;
-import com.api.planner.link.LinkRequestPayload;
 import com.api.planner.link.LinkCreateResponse;
+import com.api.planner.link.LinkRequestPayload;
+import com.api.planner.link.LinkResponse;
 import com.api.planner.link.LinkService;
 import com.api.planner.participant.ParticipantCreateResponse;
 import com.api.planner.participant.ParticipantData;
@@ -152,7 +153,7 @@ public class TripController {
 		
 		if(trip.isPresent()) {
 			
-			List<ActivityResponse> activityResponses = this.activityService.findParticipantsByTripId(id);
+			List<ActivityResponse> activityResponses = this.activityService.findActivitiesByTripId(id);
 			
 			return ResponseEntity.ok(activityResponses);
 		}
@@ -171,6 +172,20 @@ public class TripController {
 			
 			return ResponseEntity.ok(linkResponse);
 			}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/{id}/links")
+	public ResponseEntity<List<LinkResponse>> allLinksTrip(@PathVariable UUID id) {
+		Optional<Trip> trip = this.repository.findById(id);
+		
+		if(trip.isPresent()) {
+			
+			List<LinkResponse> linksResponse = this.linkService.findLinksByTripId(id);
+			
+			return ResponseEntity.ok(linksResponse);
+		}
 		
 		return ResponseEntity.notFound().build();
 	}

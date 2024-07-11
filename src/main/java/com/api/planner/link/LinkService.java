@@ -1,5 +1,8 @@
 package com.api.planner.link;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +20,10 @@ public class LinkService {
 		
 		return new LinkCreateResponse(newLink.getId());
 	}
-
+	
+	public List<LinkResponse> findLinksByTripId(UUID id) {
+		
+		return this.repository.findByTripId(id).stream().map(
+				link -> new LinkResponse(link.getId(), link.getTitle(), link.getUrl())).toList();
+	}
 }
