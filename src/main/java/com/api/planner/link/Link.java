@@ -38,4 +38,11 @@ public class Link {
 	@ManyToOne
 	@JoinColumn(name = "trip_id", nullable = false)
 	private Trip trip;
+	
+	public Link(LinkRequestPayload data, Trip trip) {
+		this.title = data.title();
+		this.url = data.url();
+		this.trip = trip;
+		
+	}
 }

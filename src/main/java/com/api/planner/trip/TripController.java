@@ -20,6 +20,9 @@ import com.api.planner.activity.ActivityCreateResponse;
 import com.api.planner.activity.ActivityRequestPayload;
 import com.api.planner.activity.ActivityResponse;
 import com.api.planner.activity.ActivityService;
+import com.api.planner.link.LinkRequestPayload;
+import com.api.planner.link.LinkCreateResponse;
+import com.api.planner.link.LinkService;
 import com.api.planner.participant.ParticipantCreateResponse;
 import com.api.planner.participant.ParticipantData;
 import com.api.planner.participant.ParticipantRequestPayload;
@@ -28,6 +31,9 @@ import com.api.planner.participant.ParticipantService;
 @RestController
 @RequestMapping("/trips")
 public class TripController {
+	
+	@Autowired
+	private LinkService linkService;
 	
 	@Autowired
 	private ParticipantService participantService;
@@ -150,6 +156,21 @@ public class TripController {
 			
 			return ResponseEntity.ok(activityResponses);
 		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping("/{id}/links")
+	public ResponseEntity<LinkCreateResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+		Optional<Trip> trip = this.repository.findById(id);
+		
+		if(trip.isPresent()) {
+			Trip rawTrip = trip.get();
+			
+			LinkCreateResponse linkResponse = this.linkService.registerLink(payload, rawTrip);
+			
+			return ResponseEntity.ok(linkResponse);
+			}
 		
 		return ResponseEntity.notFound().build();
 	}
