@@ -1,4 +1,4 @@
-package com.api.planner.activities;
+package com.api.planner.activity;
 
 public record ActivityRequestPayload(
 		String title,

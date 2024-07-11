@@ -1,4 +1,4 @@
-package com.api.planner.activities;
+package com.api.planner.activity;
 
 import java.util.List;
 import java.util.UUID;

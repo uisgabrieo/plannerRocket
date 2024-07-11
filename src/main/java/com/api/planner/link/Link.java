@@ -1,7 +1,5 @@
-package com.api.planner.activities;
+package com.api.planner.link;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import com.api.planner.trip.Trip;
@@ -20,13 +18,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "activities")
+@Table(name = "links")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Activity {
-	
+@NoArgsConstructor
+public class Link {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
@@ -34,16 +32,10 @@ public class Activity {
 	@Column(nullable = false)
 	private String title;
 	
-	@Column(name = "occurs_at", nullable = false)
-	private LocalDateTime occursAt;
+	@Column(nullable = false)
+	private String url;
 	
 	@ManyToOne
 	@JoinColumn(name = "trip_id", nullable = false)
 	private Trip trip;
-	
-	public Activity(ActivityRequestPayload data, Trip trip) {
-		this.title = data.title();
-		this.occursAt = LocalDateTime.parse(data.occursAt(), DateTimeFormatter.ISO_DATE_TIME);
-		this.trip = trip;
-	}
 }

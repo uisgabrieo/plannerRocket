@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.planner.activities.ActivityCreateResponse;
-import com.api.planner.activities.ActivityRequestPayload;
-import com.api.planner.activities.ActivityResponse;
-import com.api.planner.activities.ActivityService;
+import com.api.planner.activity.ActivityCreateResponse;
+import com.api.planner.activity.ActivityRequestPayload;
+import com.api.planner.activity.ActivityResponse;
+import com.api.planner.activity.ActivityService;
 import com.api.planner.participant.ParticipantCreateResponse;
 import com.api.planner.participant.ParticipantData;
 import com.api.planner.participant.ParticipantRequestPayload;
